@@ -4,7 +4,7 @@ describe Virtus::Attribute, '#lazy?' do
   subject { object.lazy? }
 
   let(:object)  { described_class.build(String, options) }
-  let(:options) { Hash[:lazy => lazy] }
+  let(:options) { Hash[lazy: lazy] }
 
   context 'when :lazy is set to true' do
     let(:lazy) { true }

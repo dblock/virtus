@@ -96,7 +96,7 @@ describe Virtus::Attribute::Hash, '.build' do
 
   context 'when strict mode is used' do
     let(:type) { Hash[String => Integer] }
-    let(:options) { { :strict => true } }
+    let(:options) { { strict: true } }
 
     it 'sets the strict mode for key/value types' do
       expect(subject.key_type).to be_strict

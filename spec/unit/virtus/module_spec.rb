@@ -22,7 +22,7 @@ describe Virtus, '.module' do
     end
 
     context 'with constructor turned off' do
-      subject { Virtus.module(:constructor => false) }
+      subject { Virtus.module(constructor: false) }
 
       it_behaves_like 'a valid virtus object' do
         let(:instance) { model.new }
@@ -34,7 +34,7 @@ describe Virtus, '.module' do
     end
 
     context 'with mass assignment is turned off' do
-      subject { Virtus.module(:mass_assignment => false) }
+      subject { Virtus.module(mass_assignment: false) }
 
       it_behaves_like 'a valid virtus object'
 
@@ -45,7 +45,7 @@ describe Virtus, '.module' do
     end
 
     context 'with coercion turned off' do
-      subject { Virtus.module(:coerce => false) }
+      subject { Virtus.module(coerce: false) }
 
       it_behaves_like 'a valid virtus object'
 
@@ -61,7 +61,7 @@ describe Virtus, '.module' do
 
   before do
     mod.send(:include, subject)
-    mod.attribute :name, String, :default => 'Jane'
+    mod.attribute :name, String, default: 'Jane'
     mod.attribute :something
   end
 
@@ -116,11 +116,11 @@ describe Virtus, '.module' do
 
   context 'as a peer to another module within a class' do
     subject { Virtus.module }
-    let(:other)  { Module.new }
+    let(:other) { Module.new }
 
     before do
       other.send(:include, Virtus.module)
-      other.attribute :last_name, String, :default => 'Doe'
+      other.attribute :last_name, String, default: 'Doe'
       other.attribute :something_else
       model.send(:include, mod)
       model.send(:include, other)
@@ -142,17 +142,17 @@ describe Virtus, '.module' do
 
   context 'with multiple other modules mixed into it' do
     subject { Virtus.module }
-    let(:other)  { Module.new }
-    let(:yet_another)  { Module.new }
+    let(:other) { Module.new }
+    let(:yet_another) { Module.new }
 
     before do
       other.send(:include, Virtus.module)
-      other.attribute :last_name, String, :default => 'Doe'
+      other.attribute :last_name, String, default: 'Doe'
       other.attribute :something_else
       yet_another.send(:include, Virtus.module)
       yet_another.send(:include, mod)
       yet_another.send(:include, other)
-      yet_another.attribute :middle_name, String, :default => 'Foobar'
+      yet_another.attribute :middle_name, String, default: 'Foobar'
       model.send(:include, yet_another)
     end
 
@@ -170,5 +170,4 @@ describe Virtus, '.module' do
       )
     end
   end
-
 end

@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 describe Virtus, '.new' do
-  let(:model) {
-    Class.new {
+  let(:model) do
+    Class.new do
       include Virtus
 
       attribute :id,    Integer
-      attribute :name,  String, :default => 'John Doe'
-      attribute :email, String, :default => 'john@doe.com', :lazy => true, :writer => :private
-    }
-  }
+      attribute :name,  String, default: 'John Doe'
+      attribute :email, String, default: 'john@doe.com', lazy: true, writer: :private
+    end
+  end
 
   context 'without attribute hash' do
     subject { model.new }
@@ -24,7 +24,7 @@ describe Virtus, '.new' do
   end
 
   context 'with attribute hash' do
-    subject { model.new(:id => 1, :name => 'Jane Doe') }
+    subject { model.new(id: 1, name: 'Jane Doe') }
 
     it 'sets attributes with public writers' do
       expect(subject.id).to be(1)
@@ -35,5 +35,4 @@ describe Virtus, '.new' do
       expect(subject.instance_variable_get('@email')).to be(nil)
     end
   end
-
 end

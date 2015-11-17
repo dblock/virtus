@@ -25,7 +25,7 @@ describe 'Inheritance' do
   end
 
   it 'sets correct attributes on the descendant classes' do
-    first = Examples::First.new(:id => 1, :description => 'hello world')
+    first = Examples::First.new(id: 1, description: 'hello world')
 
     expect(first.id).to be(1)
     expect(first.name).to eql('Named: 1')

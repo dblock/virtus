@@ -4,7 +4,7 @@ describe Virtus::ValueObject do
   shared_examples_for 'a valid value object' do
     subject { model.new(attributes) }
 
-    let(:attributes) { Hash[:id => 1, :name => 'Jane Doe'] }
+    let(:attributes) { Hash[id: 1, name: 'Jane Doe'] }
 
     describe '#id' do
       subject { super().id }
@@ -44,9 +44,9 @@ describe Virtus::ValueObject do
     end
 
     it 'allows to construct new values using #with' do
-      new_instance = subject.with(:name => "John Doe")
+      new_instance = subject.with(name: 'John Doe')
       expect(new_instance.id).to eql(subject.id)
-      expect(new_instance.name).to eql("John Doe")
+      expect(new_instance.name).to eql('John Doe')
     end
   end
 
@@ -59,10 +59,10 @@ describe Virtus::ValueObject do
   end
 
   context 'using new values {} block' do
-    let(:model) {
-      model = Virtus.value_object(:coerce => false, :mass_assignment => mass_assignment)
+    let(:model) do
+      model = Virtus.value_object(coerce: false, mass_assignment: mass_assignment)
 
-      Class.new {
+      Class.new do
         include model
 
         def self.name
@@ -73,8 +73,8 @@ describe Virtus::ValueObject do
           attribute :id,   Integer
           attribute :name, String
         end
-      }
-    }
+      end
+    end
 
     context 'without mass-assignment' do
       let(:mass_assignment) { false }
@@ -89,18 +89,18 @@ describe Virtus::ValueObject do
       it_behaves_like 'a valid value object with mass-assignment turned on'
 
       context 'with a model subclass' do
-        let(:subclass) {
-          Class.new(model) {
+        let(:subclass) do
+          Class.new(model) do
             values do
               attribute :email, String
             end
-          }
-        }
+          end
+        end
 
         it_behaves_like 'a valid value object' do
           subject { subclass.new(attributes) }
 
-          let(:attributes) { Hash[:id => 1, :name => 'Jane Doe', :email => 'jane@doe.com'] }
+          let(:attributes) { Hash[id: 1, name: 'Jane Doe', email: 'jane@doe.com'] }
 
           describe '#email' do
             subject { super().email }
@@ -112,7 +112,7 @@ describe Virtus::ValueObject do
           end
 
           it 'defines valid #== for a subclass' do
-            expect(subject == subject.class.new(attributes.merge(:id => 2))).to be(false)
+            expect(subject == subject.class.new(attributes.merge(id: 2))).to be(false)
           end
         end
       end
@@ -120,8 +120,8 @@ describe Virtus::ValueObject do
   end
 
   context 'using deprecated inclusion' do
-    let(:model) {
-      Class.new {
+    let(:model) do
+      Class.new do
         include Virtus::ValueObject
 
         def self.name
@@ -130,8 +130,8 @@ describe Virtus::ValueObject do
 
         attribute :id,   Integer
         attribute :name, String
-      }
-    }
+      end
+    end
 
     it_behaves_like 'a valid value object'
   end

@@ -54,12 +54,12 @@ describe 'custom collection attributes' do
     end
 
     it 'coerces an array of attribute hashes' do
-      library.books = [{ :title => 'Foo' }]
+      library.books = [{ title: 'Foo' }]
       expect(books).to be_kind_of(Examples::BookCollection)
     end
 
     it 'coerces its members' do
-      library.books = [{ :title => 'Foo' }]
+      library.books = [{ title: 'Foo' }]
       expect(books.count).to eq(1)
       expect(books.first).to be_kind_of(Examples::Book)
     end
@@ -79,7 +79,7 @@ describe 'custom collection attributes' do
   context 'with an enumerable' do
     require 'forwardable'
 
-    let(:book_collection_class) {
+    let(:book_collection_class) do
       Class.new do
         extend Forwardable
         include Enumerable
@@ -94,7 +94,7 @@ describe 'custom collection attributes' do
           new(*args)
         end
       end
-    }
+    end
 
     it_behaves_like 'a collection'
   end

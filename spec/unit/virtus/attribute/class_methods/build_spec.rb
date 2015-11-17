@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Virtus::Attribute, '.build' do
-  subject { described_class.build(type, options.merge(:name => name)) }
+  subject { described_class.build(type, options.merge(name: name)) }
 
   let(:name)    { :test }
   let(:type)    { String }
@@ -37,7 +37,7 @@ describe Virtus::Attribute, '.build' do
   end
 
   context 'when coercion is turned off in options' do
-    let(:options) { { :coerce => false } }
+    let(:options) { { coerce: false } }
 
     it_behaves_like 'a valid attribute instance'
 
@@ -45,7 +45,7 @@ describe Virtus::Attribute, '.build' do
   end
 
   context 'when options specify reader visibility' do
-    let(:options) { { :reader => :private } }
+    let(:options) { { reader: :private } }
 
     it_behaves_like 'a valid attribute instance'
 
@@ -54,7 +54,7 @@ describe Virtus::Attribute, '.build' do
   end
 
   context 'when options specify writer visibility' do
-    let(:options) { { :writer => :private } }
+    let(:options) { { writer: :private } }
 
     it_behaves_like 'a valid attribute instance'
 
@@ -63,7 +63,7 @@ describe Virtus::Attribute, '.build' do
   end
 
   context 'when options specify lazy accessor' do
-    let(:options) { { :lazy => true } }
+    let(:options) { { lazy: true } }
 
     it_behaves_like 'a valid attribute instance'
 
@@ -71,7 +71,7 @@ describe Virtus::Attribute, '.build' do
   end
 
   context 'when options specify strict mode' do
-    let(:options) { { :strict => true } }
+    let(:options) { { strict: true } }
 
     it_behaves_like 'a valid attribute instance'
 
@@ -79,7 +79,7 @@ describe Virtus::Attribute, '.build' do
   end
 
   context 'when options specify nullify blank mode' do
-    let(:options) { { :nullify_blank => true } }
+    let(:options) { { nullify_blank: true } }
 
     it_behaves_like 'a valid attribute instance'
 

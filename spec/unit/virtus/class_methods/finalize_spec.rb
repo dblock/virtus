@@ -4,7 +4,7 @@ describe Virtus, '.finalize' do
   before do
     module Examples
       class Person
-        include Virtus.model(:finalize => false)
+        include Virtus.model(finalize: false)
 
         attribute :name,     String
         attribute :articles, Array['Examples::Article']
@@ -12,7 +12,7 @@ describe Virtus, '.finalize' do
       end
 
       class Article
-        include Virtus.model(:finalize => false)
+        include Virtus.model(finalize: false)
 
         attribute :posts, Hash['Examples::Person' => 'Examples::Post']
         attribute :person, :'Examples::Person'

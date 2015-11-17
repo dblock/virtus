@@ -3,25 +3,25 @@ require 'spec_helper'
 describe 'I can create a Virtus module' do
   before do
     module Examples
-      NoncoercingModule = Virtus.model { |config|
+      NoncoercingModule = Virtus.model do |config|
         config.coerce = false
-      }
+      end
 
-      CoercingModule = Virtus.model { |config|
+      CoercingModule = Virtus.model do |config|
         config.coerce = true
 
         config.coercer do |coercer|
           coercer.string.boolean_map = { 'yup' => true, 'nope' => false }
         end
-      }
+      end
 
-      StrictModule = Virtus.model { |config|
+      StrictModule = Virtus.model do |config|
         config.strict = true
-      }
+      end
 
-      BlankModule = Virtus.model { |config|
+      BlankModule = Virtus.model do |config|
         config.nullify_blank = true
-      }
+      end
 
       class NoncoercedUser
         include NoncoercingModule
@@ -41,27 +41,27 @@ describe 'I can create a Virtus module' do
         include StrictModule
 
         attribute :stuff, Hash
-        attribute :happy, Boolean, :strict => false
+        attribute :happy, Boolean, strict: false
       end
 
       class BlankModel
         include BlankModule
 
         attribute :stuff, Hash
-        attribute :happy, Boolean, :nullify_blank => false
+        attribute :happy, Boolean, nullify_blank: false
       end
     end
   end
 
   specify 'including a custom module with coercion disabled' do
-    user = Examples::NoncoercedUser.new(:name => :Giorgio, :happy => 'yes')
+    user = Examples::NoncoercedUser.new(name: :Giorgio, happy: 'yes')
 
     expect(user.name).to be(:Giorgio)
     expect(user.happy).to eql('yes')
   end
 
   specify 'including a custom module with coercion enabled' do
-    user = Examples::CoercedUser.new(:name => 'Paul', :happy => 'nope')
+    user = Examples::CoercedUser.new(name: 'Paul', happy: 'nope')
 
     expect(user.name).to eql('Paul')
     expect(user.happy).to be(false)

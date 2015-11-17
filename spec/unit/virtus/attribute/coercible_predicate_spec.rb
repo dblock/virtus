@@ -4,7 +4,7 @@ describe Virtus::Attribute, '#coercible?' do
   subject { object.coercible? }
 
   let(:object)  { described_class.build(String, options) }
-  let(:options) { Hash[:coerce => coerce] }
+  let(:options) { Hash[coerce: coerce] }
 
   context 'when :coerce is set to true' do
     let(:coerce) { true }

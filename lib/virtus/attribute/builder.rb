@@ -1,5 +1,4 @@
 module Virtus
-
   # Attribute placeholder used when type constant is passed as a string or symbol
   #
   # @private
@@ -8,7 +7,8 @@ module Virtus
 
     # @api private
     def initialize(type, options)
-      @type, @options = type.to_s, options
+      @type = type.to_s
+      @options = options
       @name = options[:name]
     end
 
@@ -30,13 +30,12 @@ module Virtus
         if defined?(Inflecto)
           Inflecto.constantize(type)
         else
-          raise NotImplementedError, 'Virtus needs inflecto gem to constantize namespaced constant names'
+          fail NotImplementedError, 'Virtus needs inflecto gem to constantize namespaced constant names'
         end
       else
         Object.const_get(type)
       end
     end
-
   end # PendingAttribute
 
   # Extracts the actual type primitive from input type
@@ -64,13 +63,13 @@ module Virtus
         if type.instance_of?(String) || type.instance_of?(Symbol)
           if !type.to_s.include?('::') && Object.const_defined?(type)
             Object.const_get(type)
-          elsif not Attribute::Builder.determine_type(type)
+          elsif !Attribute::Builder.determine_type(type)
             @pending = true
             type
           else
             type
           end
-        elsif not type.is_a?(Class)
+        elsif !type.is_a?(Class)
           type.class
         else
           type
@@ -79,7 +78,6 @@ module Virtus
   end
 
   class Attribute
-
     # Builder is used to set up an attribute instance based on input type and options
     #
     # @private
@@ -141,19 +139,19 @@ module Virtus
 
       # @api private
       def initialize_options(options)
-        @options = klass.options.merge(:coerce => Virtus.coerce).update(options)
+        @options = klass.options.merge(coerce: Virtus.coerce).update(options)
         klass.merge_options!(type, @options)
         determine_visibility
       end
 
       # @api private
       def initialize_default_value
-        options.update(:default_value => DefaultValue.build(options[:default]))
+        options.update(default_value: DefaultValue.build(options[:default]))
       end
 
       # @api private
       def initialize_coercer
-        options.update(:coercer => determine_coercer)
+        options.update(coercer: determine_coercer)
       end
 
       # @api private
@@ -179,10 +177,8 @@ module Virtus
         default_accessor  = options.fetch(:accessor)
         reader_visibility = options.fetch(:reader, default_accessor)
         writer_visibility = options.fetch(:writer, default_accessor)
-        options.update(:reader => reader_visibility, :writer => writer_visibility)
+        options.update(reader: reader_visibility, writer: writer_visibility)
       end
-
     end # class Builder
-
   end # class Attribute
 end # module Virtus

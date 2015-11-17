@@ -1,29 +1,28 @@
 require 'spec_helper'
 
 describe Virtus, '#attributes=' do
-
   shared_examples_for 'mass-assignment' do
     it 'allows writing known attributes' do
-      subject.attributes = { :test => 'Hello World' }
+      subject.attributes = { test: 'Hello World' }
 
       expect(subject.test).to eql('Hello World')
     end
 
     it 'skips writing unknown attributes' do
-      subject.attributes = { :test => 'Hello World', :nothere => 'boom!' }
+      subject.attributes = { test: 'Hello World', nothere: 'boom!' }
 
       expect(subject.test).to eql('Hello World')
     end
   end
 
   context 'with a class' do
-    let(:model) {
-      Class.new {
+    let(:model) do
+      Class.new do
         include Virtus
 
         attribute :test, String
-      }
-    }
+      end
+    end
 
     it_behaves_like 'mass-assignment' do
       subject { model.new }

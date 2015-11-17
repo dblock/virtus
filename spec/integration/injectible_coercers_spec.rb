@@ -7,12 +7,12 @@ describe 'Injectible coercer' do
         include Virtus.value_object
 
         values do
-          attribute :address, String, :coercer => lambda { |add| add.downcase }
+          attribute :address, String, coercer: ->(add) { add.downcase }
         end
 
         def self.coerce(input)
           if input.is_a?(String)
-            new(:address => input)
+            new(address: input)
           else
             new(input)
           end
@@ -23,7 +23,7 @@ describe 'Injectible coercer' do
         include Virtus.model
 
         attribute :email, EmailAddress,
-          :coercer => lambda { |input| Examples::EmailAddress.coerce(input) }
+                  coercer: ->(input) { Examples::EmailAddress.coerce(input) }
       end
     end
   end
@@ -33,16 +33,15 @@ describe 'Injectible coercer' do
     Examples.send(:remove_const, :User)
   end
 
-  let(:doe) { Examples::EmailAddress.new(:address => 'john.doe@example.com') }
+  let(:doe) { Examples::EmailAddress.new(address: 'john.doe@example.com') }
 
   it 'accepts an email hash' do
-    user = Examples::User.new :email => { :address => 'John.Doe@Example.Com' }
+    user = Examples::User.new email: { address: 'John.Doe@Example.Com' }
     expect(user.email).to eq(doe)
   end
 
   it 'coerces an embedded string' do
-    user = Examples::User.new :email => 'John.Doe@Example.Com'
+    user = Examples::User.new email: 'John.Doe@Example.Com'
     expect(user.email).to eq(doe)
   end
-
 end

@@ -1,5 +1,5 @@
 guard :rspec, spec_paths: 'spec/unit' do
-  #run all specs if configuration is modified
+  # run all specs if configuration is modified
   watch('Guardfile')           { 'spec' }
   watch('Gemfile.lock')        { 'spec' }
   watch('spec/spec_helper.rb') { 'spec' }
@@ -15,5 +15,5 @@ guard :rspec, spec_paths: 'spec/unit' do
   # run a spec if it is modified
   watch(%r{\Aspec/(?:unit|integration)/.+_spec\.rb\z})
 
-  notification :tmux, :display_message => true
+  notification :tmux, display_message: true
 end

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe "virtus attribute definitions" do
-
+describe 'virtus attribute definitions' do
   before do
     module Examples
       class Person
@@ -14,7 +13,6 @@ describe "virtus attribute definitions" do
       end
 
       class Manager < Person
-
       end
     end
   end
@@ -29,7 +27,7 @@ describe "virtus attribute definitions" do
   end
 
   specify 'the constructor accepts a hash for mass-assignment' do
-    john = Examples::Person.new(:name => 'John', :age => 13)
+    john = Examples::Person.new(name: 'John', age: 13)
     expect(john.name).to eq('John')
     expect(john.age).to eq(13)
   end
@@ -41,7 +39,7 @@ describe "virtus attribute definitions" do
   end
 
   context 'with attributes' do
-    let(:attributes) { {:name => 'Jane', :age => 45, :doctor => true, :salary => 4500} }
+    let(:attributes) { { name: 'Jane', age: 45, doctor: true, salary: 4500 } }
 
     specify "#attributes returns the object's attributes as a hash" do
       expect(person.attributes).to eq(attributes)
@@ -58,21 +56,21 @@ describe "virtus attribute definitions" do
 
   context 'inheritance' do
     specify 'inherits all the attributes from the base class' do
-      fred = Examples::Manager.new(:name => 'Fred', :age => 29)
+      fred = Examples::Manager.new(name: 'Fred', age: 29)
       expect(fred.name).to eq('Fred')
       expect(fred.age).to eq(29)
     end
 
     specify 'lets you add attributes to the base class at runtime' do
-      frank = Examples::Manager.new(:name => 'Frank')
+      frank = Examples::Manager.new(name: 'Frank')
       Examples::Person.attribute :just_added, String
       frank.just_added = 'it works!'
       expect(frank.just_added).to eq('it works!')
     end
 
     specify 'lets you add attributes to the subclass at runtime' do
-      person_jack = Examples::Person.new(:name => 'Jack')
-      manager_frank = Examples::Manager.new(:name => 'Frank')
+      person_jack = Examples::Person.new(name: 'Jack')
+      manager_frank = Examples::Manager.new(name: 'Frank')
 
       Examples::Manager.attribute :just_added, String
 

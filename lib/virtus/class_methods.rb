@@ -1,5 +1,4 @@
 module Virtus
-
   # Class methods that are added when you include Virtus
   module ClassMethods
     include Extensions::Methods
@@ -82,9 +81,8 @@ module Virtus
     # @api private
     def assert_valid_name(name)
       if instance_methods.include?(:attributes) && name.to_sym == :attributes
-        raise ArgumentError, "#{name.inspect} is not allowed as an attribute name"
+        fail ArgumentError, "#{name.inspect} is not allowed as an attribute name"
       end
     end
-
   end # module ClassMethods
 end # module Virtus

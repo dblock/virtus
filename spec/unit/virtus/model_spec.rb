@@ -3,14 +3,14 @@ require 'spec_helper'
 describe Virtus, '.model' do
   shared_examples_for 'a model with constructor' do
     it 'accepts attribute hash' do
-      instance = subject.new(:name => 'Jane')
+      instance = subject.new(name: 'Jane')
       expect(instance.name).to eql('Jane')
     end
   end
 
   shared_examples_for 'a model with mass-assignment' do
     let(:attributes) do
-      { :name => 'Jane', :something => nil }
+      { name: 'Jane', something: nil }
     end
 
     before do
@@ -38,7 +38,7 @@ describe Virtus, '.model' do
 
       before do
         subject.send(:include, mod)
-        subject.attribute :name, String, :default => 'Jane'
+        subject.attribute :name, String, default: 'Jane'
         subject.attribute :something
       end
 
@@ -68,9 +68,9 @@ describe Virtus, '.model' do
         it_behaves_like 'a model with mass-assignment' do
           let(:instance) { subject.new }
 
-          let(:attributes) {
-            { :name => 'Jane', :something => nil, :age => 23 }
-          }
+          let(:attributes) do
+            { name: 'Jane', something: nil, age: 23 }
+          end
         end
 
         it 'has its own attributes' do
@@ -99,7 +99,7 @@ describe Virtus, '.model' do
   context 'when constructor is disabled' do
     subject { Class.new.send(:include, mod) }
 
-    let(:mod) { Virtus.model(:constructor => false) }
+    let(:mod) { Virtus.model(constructor: false) }
 
     it 'does not accept attribute hash in the constructor' do
       expect { subject.new({}) }.to raise_error(ArgumentError)
@@ -107,7 +107,7 @@ describe Virtus, '.model' do
   end
 
   context 'when strict mode is enabled' do
-    let(:mod)   { Virtus.model(:strict => true) }
+    let(:mod)   { Virtus.model(strict: true) }
     let(:model) { Class.new }
 
     context 'with a class' do
@@ -138,7 +138,7 @@ describe Virtus, '.model' do
   end
 
   context 'when mass-assignment is disabled' do
-    let(:mod)   { Virtus.model(:mass_assignment => false) }
+    let(:mod)   { Virtus.model(mass_assignment: false) }
     let(:model) { Class.new }
 
     context 'with a class' do
@@ -165,7 +165,7 @@ describe Virtus, '.model' do
   end
 
   context 'when :required is set' do
-    let(:mod)   { Virtus.model(:required => false) }
+    let(:mod)   { Virtus.model(required: false) }
     let(:model) { Class.new }
 
     context 'with a class' do

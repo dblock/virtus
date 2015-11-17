@@ -21,7 +21,7 @@ describe Virtus::Attribute::Boolean, '#coerce' do
   end
 
   context 'when strict is turned on' do
-    let(:options) { { :strict => true } }
+    let(:options) { { strict: true } }
 
     context 'with a coercible input' do
       let(:input) { 1 }

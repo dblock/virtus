@@ -10,7 +10,7 @@ describe 'I can extend objects' do
   end
 
   specify 'defining attributes on an object' do
-    attributes = { :name => 'John', :age => 29 }
+    attributes = { name: 'John', age: 29 }
 
     admin = Examples::Admin.new
     admin.extend(Virtus)
@@ -26,7 +26,7 @@ describe 'I can extend objects' do
 
     expect(admin.attributes).to eql(attributes)
 
-    new_attributes   = { :name => 'Jane', :age => 28 }
+    new_attributes   = { name: 'Jane', age: 28 }
     admin.attributes = new_attributes
 
     expect(admin.name).to eql('Jane')

@@ -17,7 +17,7 @@ describe 'I can define attributes within a module' do
       module Age
         include Common
 
-        attribute :age,  Integer
+        attribute :age, Integer
       end
 
       class User
@@ -39,7 +39,7 @@ describe 'I can define attributes within a module' do
     expect(Examples::Admin.attribute_set[:name]).to be_instance_of(Virtus::Attribute)
     expect(Examples::Admin.attribute_set[:age]).to be_instance_of(Virtus::Attribute)
 
-    user = Examples::Admin.new(:name => 'Piotr', :age => 29)
+    user = Examples::Admin.new(name: 'Piotr', age: 29)
     expect(user.name).to eql('Piotr')
     expect(user.age).to eql(29)
   end
@@ -48,7 +48,7 @@ describe 'I can define attributes within a module' do
     moderator = Examples::Moderator.new
     moderator.extend(Examples::Name, Examples::Age)
 
-    moderator.attributes = { :name => 'John', :age => 21 }
+    moderator.attributes = { name: 'John', age: 21 }
     expect(moderator.name).to eql('John')
     expect(moderator.age).to eql(21)
   end

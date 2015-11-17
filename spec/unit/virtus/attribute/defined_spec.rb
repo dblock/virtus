@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Virtus::Attribute, '#defined?' do
   subject { object.defined?(instance) }
 
-  let(:object) { described_class.build(String, :name => name) }
+  let(:object) { described_class.build(String, name: name) }
 
   let(:model)    { Class.new { attr_accessor :test } }
   let(:name)     { :test }

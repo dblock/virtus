@@ -1,24 +1,23 @@
 require 'spec_helper'
 
 describe Virtus, '#attributes' do
-
   shared_examples_for 'attribute hash' do
     it 'includes all attributes' do
-      subject.attributes = { :test => 'Hello World', :test_priv => 'Yo' }
+      subject.attributes = { test: 'Hello World', test_priv: 'Yo' }
 
-      expect(subject.attributes).to eql(:test => 'Hello World')
+      expect(subject.attributes).to eql(test: 'Hello World')
     end
   end
 
   context 'with a class' do
-    let(:model) {
-      Class.new {
+    let(:model) do
+      Class.new do
         include Virtus
 
         attribute :test,      String
-        attribute :test_priv, String, :reader => :private
-      }
-    }
+        attribute :test_priv, String, reader: :private
+      end
+    end
 
     it_behaves_like 'attribute hash' do
       subject { model.new }
@@ -33,7 +32,7 @@ describe Virtus, '#attributes' do
     before do
       subject.extend(Virtus)
       subject.attribute :test,      String
-      subject.attribute :test_priv, String, :reader => :private
+      subject.attribute :test_priv, String, reader: :private
     end
 
     it_behaves_like 'attribute hash'

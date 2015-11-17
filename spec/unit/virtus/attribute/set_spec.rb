@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Virtus::Attribute, '#set' do
   subject { object.set(instance, value) }
 
-  let(:object) { described_class.build(String, options.merge(:name => name)) }
+  let(:object) { described_class.build(String, options.merge(name: name)) }
 
   let(:model)    { Class.new { attr_reader :test } }
   let(:name)     { :test }

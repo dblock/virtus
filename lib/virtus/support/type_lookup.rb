@@ -1,8 +1,6 @@
 module Virtus
-
   # A module that adds type lookup to a class
   module TypeLookup
-
     TYPE_FORMAT = /\A[A-Z]\w*\z/.freeze
 
     # Set cache ivar on the model
@@ -41,10 +39,10 @@ module Virtus
     #
     # @api private
     def primitive
-      raise NotImplementedError, "#{self}.primitive must be implemented"
+      fail NotImplementedError, "#{self}.primitive must be implemented"
     end
 
-  private
+    private
 
     # @api private
     def determine_type_and_cache(class_or_name)
@@ -84,7 +82,7 @@ module Virtus
       descendants.select(&:primitive).reverse_each do |descendant|
         descendant_primitive = descendant.primitive
         next unless primitive <= descendant_primitive
-        type = descendant if type.nil? or type.primitive > descendant_primitive
+        type = descendant if type.nil? || type.primitive > descendant_primitive
       end
       type
     end
@@ -100,10 +98,9 @@ module Virtus
     #
     # @api private
     def determine_type_from_string(string)
-      if string =~ TYPE_FORMAT and const_defined?(string, *EXTRA_CONST_ARGS)
+      if string =~ TYPE_FORMAT && const_defined?(string, *EXTRA_CONST_ARGS)
         const_get(string, *EXTRA_CONST_ARGS)
       end
     end
-
   end # module TypeLookup
 end # module Virtus

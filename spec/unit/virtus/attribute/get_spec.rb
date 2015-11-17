@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Virtus::Attribute, '#get' do
   subject { object.get(instance) }
 
-  let(:object) { described_class.build(String, options.update(:name => name)) }
+  let(:object) { described_class.build(String, options.update(name: name)) }
 
   let(:model)    { Class.new { attr_accessor :test } }
   let(:name)     { :test }
@@ -20,7 +20,7 @@ describe Virtus::Attribute, '#get' do
   end
 
   context 'with :lazy is set to true' do
-    let(:options) { { :lazy => true, :default => value } }
+    let(:options) { { lazy: true, default: value } }
 
     it { is_expected.to eql(value) }
 
