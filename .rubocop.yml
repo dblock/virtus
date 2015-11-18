@@ -3,3 +3,6 @@ AllCops:
     - vendor/**/*
 
 inherit_from: .rubocop_todo.yml
+
+Style/AndOr:
+  EnforcedStyle: conditionals
